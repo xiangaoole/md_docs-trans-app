@@ -54,5 +54,6 @@ class FileTranslator:
         return lines
 
     def _write_translated_data_to_file(self) -> None:
-        self.__translating_file.seek(0)
+        self.__translating_file.close()
+        self.__translating_file = self.file_path.open("w")
         self.__translating_file.writelines(self.file_contents_with_translation)

@@ -38,6 +38,15 @@ $ md-translate [-h] [-c CONFIG_PATH]
 
 If you set config file, you can override any of settings by arguments
 
+To run the source code:
+
+```bash
+$ pip uninstall md-translate
+$ python -m md_translate.app md-translate [-h] [-c CONFIG_PATH]
+               [-s {Yandex,Google}] [-S] [-T]
+               [path]
+```
+
 ### Positional arguments:
 * `path` Path to folder to process. If not set, uses current folder
 
