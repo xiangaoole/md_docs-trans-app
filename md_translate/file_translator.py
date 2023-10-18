@@ -16,6 +16,7 @@ class FileTranslator:
         self.file_path: Path = file_path
         self.file_contents_with_translation: list = []
         self.code_block: bool = False
+        self.yaml_header: bool = False
 
     def __enter__(self) -> 'FileTranslator':
         self.__translating_file: IO = self.file_path.open(self.default_open_mode)
@@ -32,7 +33,13 @@ class FileTranslator:
             self.code_block = (
                 not self.code_block if line.is_code_block_border() else self.code_block
             )
-            if line.can_be_translated() and not self.code_block:
+            if line.is_yaml_header_border():
+                if counter == 0:
+                    self.yaml_header = True
+                elif self.yaml_header:
+                    self.yaml_header = False
+        
+            if line.can_be_translated() and not self.yaml_header and not self.code_block:
                 self.file_contents_with_translation.append('\n')
                 self.file_contents_with_translation.append(line.fixed)
                 logger.info(f'Processed {counter+1} lines')

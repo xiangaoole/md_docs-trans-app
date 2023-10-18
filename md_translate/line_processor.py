@@ -50,12 +50,21 @@ class Line:
         return self._line.startswith(self.code_mark) and not self._line.endswith(
             self.code_mark
         )
+    
+    def is_yaml_header_border(self) -> bool:
+        return self._line.strip() == '---'
+    
+    def is_custom_not_translate_line(self) -> bool:
+        if self._line.lower().startswith('-- '):
+            return True
+        return False
 
     def can_be_translated(self) -> bool:
         return (
             not self._is_empty_line()
             and not self.is_code_block_border()
             and not self._is_single_code_line()
+            and not self.is_custom_not_translate_line()
             and self._is_untranslated_paragraph()
         )
 
