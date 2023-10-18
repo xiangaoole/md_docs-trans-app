@@ -15,15 +15,21 @@ class FileTranslator:
         self.settings = settings
         self.file_path: Path = file_path
         self.file_contents_with_translation: list = []
+        # replace ".md" to ".translated.md"
+        self.output_file_path: Path = Path(
+            str(self.file_path).replace('.md', "." + settings.target_lang + ".md")
+        )
         self.code_block: bool = False
         self.yaml_header: bool = False
 
     def __enter__(self) -> 'FileTranslator':
         self.__translating_file: IO = self.file_path.open(self.default_open_mode)
+        self.__output_file: IO = self.output_file_path.open('w')
         return self
 
     def __exit__(self, *args: Any, **kwargs: Any) -> None:
         self.__translating_file.close()
+        self.__output_file.close()
 
     def translate(self) -> None:
         lines = self._get_lines()
@@ -51,5 +57,5 @@ class FileTranslator:
         return lines
 
     def _write_translated_data_to_file(self) -> None:
-        self.__translating_file.seek(0)
-        self.__translating_file.writelines(self.file_contents_with_translation)
+        self.__output_file.writelines(self.file_contents_with_translation)
+
