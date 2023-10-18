@@ -30,7 +30,7 @@ md-translate = 'md_translate.app:run'
 [tool.poetry.dependencies]
 python = "^3.6"
 requests = "^2.24.0"
-translators = "^4.7.2"
+translators = "^5.0.0"
 langdetect = "^1.0.8"
 loguru = "^0.5.3"
 

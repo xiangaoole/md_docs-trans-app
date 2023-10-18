@@ -80,7 +80,7 @@ class Settings:
             '-s',
             '--service',
             help='Translating service',
-            choices=const.TRANSLATOR_BY_SERVICE_NAME.keys(),
+            choices=const.TRANSLATOR_BY_SERVICE_NAME,
             type=str,
             dest='service_name',
         )

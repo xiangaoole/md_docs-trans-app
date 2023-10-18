@@ -77,7 +77,7 @@ class Line:
 
     def _is_untranslated_paragraph(self) -> bool:
         try:
-            return detect(self._line) == self.settings.source_lang
+            return detect(self._line).lower() == self.settings.source_lang.lower()
         except LangDetectException:
             return False
 
