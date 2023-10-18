@@ -48,6 +48,10 @@ class Settings:
         return self.__get_property_by_name('service_name')
 
     @property
+    def is_bilingual(self) -> bool:
+        return self.params.bilingual
+
+    @property
     def path(self) -> Path:
         return self.params.path
 
@@ -89,5 +93,8 @@ class Settings:
         )
         arg_parser.add_argument(
             '-T', '--target_lang', help='Target language code',
+        )
+        arg_parser.add_argument(
+            '-B', '--bilingual', help='Keep original language', type=bool, default=False
         )
         return arg_parser
